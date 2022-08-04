@@ -3,16 +3,16 @@
 
 # ? unicode tables - https://www.rapidtables.com/code/text/unicode-characters.html
 
-import src.game as game
+from src import menu
 
 # ! START GAME ! #
 # * MAIN LOOP * #
 def main():
-    game.run()
+    menu
 
 
 # ? Let this file to be imported as module
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
 # TODO: Add and import further days as a modules

@@ -1,0 +1,34 @@
+{
+  "title": "Call of Cthulhu - Druga",
+
+  "main_menu": {
+    "new_game": "Nowa Gra",
+    "options": "Opcje",
+    "language": "Język",
+    "lang": {
+      "pl": "Polski",
+      "en": "Angielski"
+    },
+    "difficulty": "Poziom trudności",
+    "keys": "Sterowanie",
+    "about": "O Grze",
+    "back": "Wróć",
+    "quit": "Wyjdź"
+  },
+  "about": {
+    "title": "O Grze",
+    "made": "Wykonał",
+    "scenario": "Scenariusz",
+    "description": "Scenariusz ten inspirowany jest ponurymi skandynawskimi powieściami i serialami, w których główne role odgrywają tajemnica, społeczność i śledztwo. Konwencja ta znana jest pod nazwą nordic-noir, lecz scenariusz nawiązuje również do znanych baśni ludowych i Lovecraftowskiej Krainy Snów. Akcja gry rozpoczyna się w lutym 2020 r. gdzieś w Skandynawii. Oniryczny nastrój buduje tu odosobnione miasteczko otoczone przez wzgórza i ciemne lasy oraz surowa, choć urokliwa zimowa aura. To bardzo subtelna historia, która nie jest opowieścią akcji."
+  },
+
+  "dialogs": [
+    [
+      "Stoksjö to liczące zaledwie 2 tysiące mieszkańców miasteczko położone w centrum prowincji o nazwie Helbjerg, w którym pełnisz rolę komendanta małego posterunku policji."
+    ],
+    [
+      "Jest 12 lutego 2020 r. - Wracasz późną nocą radiowozem z oddalonego o przeszło 80 km miasta, w którym składałeś przed sądem zeznania dotyczące jednej z Twoich ostatnich spraw. \nWąska droga do domu, biegnąca dnem kotliny i wciśnięta pomiędzy dwa porośnięte ciemnym lasem wzgórza, pokryta jest świeżym śniegiem.",
+    "Niespodziewanie, wyjeżdżając zza zakrętu, dostrzegasz w światłach swojego samochodu sylwetkę dziewczyny. Słaniając się boso poboczem w kierunku miasta, prawdopodobnie za chwilę wejdzie pod koła Twojego radiowozu.", "Wpadasz w poślizg, ale kilka szybkich ruchów kierownicą i po chwili udaje Ci się wyrównanać tor jazdy i bezpiecznie zatrzymać pojazd."
+    ]
+  ]
+}

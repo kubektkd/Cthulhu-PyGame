@@ -1,0 +1,31 @@
+{
+  "title": "Call of Cthulhu - Another one",
+
+  "main_menu": {
+    "new_game": "New Game",
+    "options": "Options",
+    "language": "Language",
+    "lang": {
+      "pl": "Polish",
+      "en": "English"
+    },
+    "difficulty": "Difficulty Level",
+    "keys": "Key Bindings",
+    "about": "About",
+    "back": "Back",
+    "quit": "Quit"
+  },
+  "about": {
+    "title": "About Game",
+    "made": "Made by",
+    "scenario": "Scenario",
+    "description": "This scenario is inspired by gloomy Scandinavian novels and series, in which mystery, community and investigation play the main roles. This convention is known as nordic-noir, but the script also refers to famous folk tales and Lovecraft's Dreamland. The action of the game begins in February 2020 somewhere in Scandinavia. The dreamlike atmosphere is built here by a secluded town surrounded by hills and dark forests and a harsh, but charming winter aura. This is a very subtle story that is not an action story."
+  },
+
+  "dialogs": [
+    ["Stoksjö is a town with only 2,000 inhabitants in the center of the province of Helbjerg, where you are the commander of a small police station."],
+    ["It is February 12, 2020 - You are returning late at night in a police car from a city over 80 km away, in which you gave a testimony to the court regarding one of your last cases.\nThe narrow road to the house, running along the bottom of the valley and squeezed between two dark forest covered hills, is covered with fresh snow.",
+    "Unexpectedly, as you drive around the bend, you see the silhouette of a girl in the headlights of your car. Staggering barefoot along the road towards the city, he will probably come under the wheels of your police car in a moment."
+    ]
+  ]
+}

@@ -1,48 +1,48 @@
 import pygame
+from utils.constants import *
+import utils.config as config
+from utils.helpers import _, read_locale_file
 
 pygame.init()
 
 clock = pygame.time.Clock()
-fps = 60
+fps = config.fps
 
-# game window
-bottom_panel = 150
-screen_width = 1280
-screen_height = 600 + bottom_panel
+read_locale_file(config.default_lang)
 
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Call of Cthulhu - Another one')
+screen = pygame.display.set_mode((config.screen_width, config.screen_height))
+pygame.display.set_caption(_('title'))
 
-# define fonts
-font = pygame.font.SysFont('Lucida Console', 18)
+# DEFINE FONTS
+font = pygame.font.SysFont('Lucida Console', config.default_font_size)
 
-# define colours
-red = (228, 27, 23)
-green = (155, 227, 23)
-gray = (156, 156, 156)
-
-# load images
+# LOAD IMAGES
 # background image
+start_background = pygame.image.load('assets/img/Background/menu1.jpg').convert_alpha()
 background_img = pygame.image.load('assets/img/Background/scene1.jpg').convert_alpha()
 background_img2 = pygame.image.load('assets/img/Background/scene2.jpg').convert_alpha()
-background_list = [background_img, background_img2]
-logo_img = pygame.image.load('assets/img/Texts/logo.png').convert_alpha()
+background_list = [background_img, background_img2, start_background]
+
 # panel image
 panel_img = pygame.image.load('assets/img/Icons/panel.png').convert_alpha()
-# button images
 
-# define game variables
+# DEFINE GAME VARIABLES
 current_dialog = 0
+current_dialog_line = 0
+current_bg = 0
+dialog_lines = _('dialogs')
 
-# create a function for drawing text
+# function for drawing text in game window
 def draw_text(text, font, text_color, x, y):
     img = font.render(text, True, text_color)
     screen.blit(img, (x, y))
 
-def blit_text(surface, text, pos, font, color=gray):
+# function for drawing dialogs in panel
+def blit_text(surface, text, pos, font, color=GRAY):
     words = [word.split(' ') for word in text.splitlines()]  # 2D array where each row is a list of words.
     space = font.size(' ')[0]  # The width of a space.
     max_width, max_height = surface.get_size()
+    word_width, word_height = 0, 0
     x, y = pos
     for line in words:
         for word in line:
@@ -56,49 +56,49 @@ def blit_text(surface, text, pos, font, color=gray):
         x = pos[0]  # Reset the x.
         y += word_height + 5  # Start on new row.
 
+# function for drawing selected dialog line
 def draw_dialog(dialogs_list):
     if current_dialog < len(dialogs_list):
-        blit_text(screen, dialogs_list[current_dialog], (30, 620), font)
-        pygame.draw.polygon(screen, gray, [(1225, 715),(1225, 725),(1235, 720)])
-        pygame.draw.polygon(screen, gray, [(1240, 715),(1240, 725),(1250, 720)])
+        if current_dialog_line < len(dialogs_list[current_dialog]):
+            blit_text(screen, dialogs_list[current_dialog][current_dialog_line], (30, 620), font)
+            pygame.draw.polygon(screen, GRAY, [(1225, 715),(1225, 725),(1235, 720)])
+            pygame.draw.polygon(screen, GRAY, [(1240, 715),(1240, 725),(1250, 720)])
+    else:
+        raise IndexError("dialog index out of range")
 
 # function for drawing background
 def draw_bg():
-    background = pygame.transform.scale(background_list[current_dialog], (1280, 600))
-    logo = pygame.transform.scale(logo_img, (150, 50))
+    background = pygame.transform.scale(background_list[current_bg], (1280, 600))
     screen.blit(background, (0, 0))
-    screen.blit(logo_img, (20, 540))
 
-# function for drawing panel
+# function for drawing interactions panel
 def draw_panel():
     # draw panel rectangle
-    panel = pygame.transform.scale(panel_img, (1280, 150))
-    screen.blit(panel, (0, screen_height - bottom_panel))
-    # # show knight stats
-    # draw_text(f'{knight.name} HP: {knight.hp}', font, red, 100, screen_height - bottom_panel + 10)
-    # for count, i in enumerate(bandit_list):
-    #     # show name and health
-    #     draw_text(f'{i.name} HP: {i.hp}', font, red, 550, (screen_height - bottom_panel + 10) + count * 60)
+    panel = pygame.transform.scale(panel_img, (config.screen_width, config.bottom_panel))
+    screen.blit(panel, (0, config.screen_height - config.bottom_panel))
 
-text_list = [
-    'Stoksjö to liczące zaledwie 2 tysiące mieszkańców miasteczko położone w centrum prowincji o nazwie Helbjerg, w którym pełnisz rolę komendanta małego posterunku policji.',
-    'Jest 12 lutego 2020 r. - Wracasz późną nocą radiowozem z oddalonego o przeszło 80 km miasta, w którym składałeś przed sądem zeznania dotyczące jednej z Twoich ostatnich spraw. \nWąska droga do domu, biegnąca dnem kotliny i wciśnięta pomiędzy dwa porośnięte ciemnym lasem wzgórza, pokryta jest świeżym śniegiem.',
-    'Niespodziewanie, wyjeżdżając zza zakrętu, dostrzegasz w światłach swojego samochodu sylwetkę dziewczyny. Słaniając się boso poboczem w kierunku miasta, prawdopodobnie za chwilę wejdzie pod koła Twojego radiowozu.'
-]
-
-text_list_en = [
-    'Stoksjö is a town with only 2,000 inhabitants in the center of the province of Helbjerg, where you are the commander of a small police station.',
-    'It is February 12, 2020 - You are returning late at night in a police car from a city over 80 km away, in which you gave a testimony to the court regarding one of your last cases.\nThe narrow road to the house, running along the bottom of the valley and squeezed between two dark forest covered hills, is covered with fresh snow.',
-    'Unexpectedly, as you drive around the bend, you see the silhouette of a girl in the headlights of your car. Staggering barefoot along the road towards the city, he will probably come under the wheels of your police car in a moment.'
-]
+def next_dialog():
+    global current_dialog_line, current_dialog, current_bg
+    current_dialog_line += 1
+    if current_dialog_line == len(dialog_lines[current_dialog]):
+        current_dialog_line = 0
+        current_dialog += 1
+        current_bg += 1
+    print(current_dialog_line, current_dialog, current_bg)
 
 
+# MAIN GAME LOOP
 def run():
-    global current_dialog
+    global current_dialog, current_dialog_line, current_bg
     run = True
+    read_locale_file(config.selected_lang or config.default_lang)
+    dialog_lines = _('dialogs')
 
     while run:
         clock.tick(fps)
+
+        # reset mouse click
+        # clicked = False
 
         # draw background
         draw_bg()
@@ -106,19 +106,27 @@ def run():
         # draw panel
         draw_panel()
 
-        draw_dialog(text_list_en)
+        draw_dialog(dialog_lines)
+
+        # TODO: Add mouse support
+        # mouse_pos = pygame.mouse.get_pos()
+        # next_buttons = pygame.Rect((1225, 715),(25, 10))
+        # if next_buttons.collidepoint(mouse_pos):
+        #     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+        #     if clicked == True:
+        #         next_dialog()
+        # else:
+        #     pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
 
         # event handler
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                clicked = True
-            else:
-                clicked = False
+            # if event.type == pygame.MOUSEBUTTONUP:
+            #     clicked = True
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_RETURN:
-                    current_dialog += 1
+                    next_dialog()
 
         pygame.display.update()
 
