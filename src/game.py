@@ -14,7 +14,7 @@ screen = pygame.display.set_mode((config.screen_width, config.screen_height))
 pygame.display.set_caption(_('title'))
 
 # DEFINE FONTS
-font = pygame.font.SysFont('Lucida Console', config.default_font_size)
+font = pygame.font.SysFont(config.font_name, config.default_font_size)
 
 # LOAD IMAGES
 # background image
@@ -84,7 +84,6 @@ def next_dialog():
         current_dialog_line = 0
         current_dialog += 1
         current_bg += 1
-    print(current_dialog_line, current_dialog, current_bg)
 
 
 # MAIN GAME LOOP

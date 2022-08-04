@@ -5,6 +5,7 @@ bottom_panel = 150
 screen_width = 1280
 screen_height = 600 + bottom_panel
 
+font_name = 'Lucida Console'
 default_font_size = 18
 small_font_size = 12
 

@@ -5,8 +5,8 @@ from utils import config
 from utils.helpers import _, read_locale_file
 
 pygame.font.init()
-font = pygame.font.SysFont('Lucida Console', 18)
-small_font = pygame.font.SysFont('Lucida Console', 12)
+font = pygame.font.SysFont(config.font_name, config.default_font_size)
+small_font = pygame.font.SysFont(config.font_name, config.small_font_size)
 
 logo = pygame.image.load("assets/img/Texts/logo.png")
 bg = pygame.image.load("assets/img/Background/menu1.jpg")
