@@ -1,7 +1,7 @@
 import pygame
 from utils.constants import *
 import utils.config as config
-from utils.helpers import _, read_locale_file
+from utils.helpers import t, read_locale_file
 
 pygame.init()
 
@@ -11,7 +11,7 @@ fps = config.fps
 read_locale_file(config.default_lang)
 
 screen = pygame.display.set_mode((config.screen_width, config.screen_height))
-pygame.display.set_caption(_('title'))
+pygame.display.set_caption(t('title'))
 
 # DEFINE FONTS
 font = pygame.font.SysFont(config.font_name, config.default_font_size)
@@ -30,12 +30,14 @@ panel_img = pygame.image.load('assets/img/Icons/panel.png').convert_alpha()
 current_dialog = 0
 current_dialog_line = 0
 current_bg = 0
-dialog_lines = _('dialogs')
+dialog_lines = t('dialogs')
+
 
 # function for drawing text in game window
 def draw_text(text, font, text_color, x, y):
     img = font.render(text, True, text_color)
     screen.blit(img, (x, y))
+
 
 # function for drawing dialogs in panel
 def blit_text(surface, text, pos, font, color=GRAY):
@@ -56,26 +58,30 @@ def blit_text(surface, text, pos, font, color=GRAY):
         x = pos[0]  # Reset the x.
         y += word_height + 5  # Start on new row.
 
+
 # function for drawing selected dialog line
 def draw_dialog(dialogs_list):
     if current_dialog < len(dialogs_list):
         if current_dialog_line < len(dialogs_list[current_dialog]):
             blit_text(screen, dialogs_list[current_dialog][current_dialog_line], (30, 620), font)
-            pygame.draw.polygon(screen, GRAY, [(1225, 715),(1225, 725),(1235, 720)])
-            pygame.draw.polygon(screen, GRAY, [(1240, 715),(1240, 725),(1250, 720)])
+            pygame.draw.polygon(screen, GRAY, [(1225, 715), (1225, 725), (1235, 720)])
+            pygame.draw.polygon(screen, GRAY, [(1240, 715), (1240, 725), (1250, 720)])
     else:
         raise IndexError("dialog index out of range")
+
 
 # function for drawing background
 def draw_bg():
     background = pygame.transform.scale(background_list[current_bg], (1280, 600))
     screen.blit(background, (0, 0))
 
+
 # function for drawing interactions panel
 def draw_panel():
     # draw panel rectangle
     panel = pygame.transform.scale(panel_img, (config.screen_width, config.bottom_panel))
     screen.blit(panel, (0, config.screen_height - config.bottom_panel))
+
 
 def next_dialog():
     global current_dialog_line, current_dialog, current_bg
@@ -91,7 +97,7 @@ def run():
     global current_dialog, current_dialog_line, current_bg
     run = True
     read_locale_file(config.selected_lang or config.default_lang)
-    dialog_lines = _('dialogs')
+    dialog_lines = t('dialogs')
 
     while run:
         clock.tick(fps)

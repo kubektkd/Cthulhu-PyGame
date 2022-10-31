@@ -5,11 +5,11 @@
 
 from src import menu
 
+
 # ! START GAME ! #
 # * MAIN LOOP * #
 def main():
     menu
-
 
 # ? Let this file to be imported as module
 # if __name__ == "__main__":
